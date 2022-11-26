@@ -1,5 +1,6 @@
 package br.com.rmf.ordersystemapi;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +13,19 @@ import br.com.rmf.ordersystemapi.entities.Category;
 import br.com.rmf.ordersystemapi.entities.City;
 import br.com.rmf.ordersystemapi.entities.Costumer;
 import br.com.rmf.ordersystemapi.entities.CostumerType;
+import br.com.rmf.ordersystemapi.entities.Demand;
+import br.com.rmf.ordersystemapi.entities.Payment;
+import br.com.rmf.ordersystemapi.entities.PaymentBillet;
+import br.com.rmf.ordersystemapi.entities.PaymentCard;
+import br.com.rmf.ordersystemapi.entities.PaymentStatus;
 import br.com.rmf.ordersystemapi.entities.Product;
 import br.com.rmf.ordersystemapi.entities.State;
 import br.com.rmf.ordersystemapi.repositories.AddressRepository;
 import br.com.rmf.ordersystemapi.repositories.CategoryRepository;
 import br.com.rmf.ordersystemapi.repositories.CityRepository;
 import br.com.rmf.ordersystemapi.repositories.CostumerRepository;
+import br.com.rmf.ordersystemapi.repositories.DemandRepository;
+import br.com.rmf.ordersystemapi.repositories.PaymentRepository;
 import br.com.rmf.ordersystemapi.repositories.ProductRepository;
 import br.com.rmf.ordersystemapi.repositories.StateRepository;
 
@@ -41,6 +49,12 @@ public class OrderSystemApiApplication implements CommandLineRunner {
 
 	@Autowired
 	private AddressRepository addressRepository;
+
+	@Autowired
+	private DemandRepository orderRepository;
+
+	@Autowired
+	private PaymentRepository paymentRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(OrderSystemApiApplication.class, args);
@@ -91,6 +105,23 @@ public class OrderSystemApiApplication implements CommandLineRunner {
 		costumerRepository.saveAll(Arrays.asList(ctm1));
 
 		addressRepository.saveAll(Arrays.asList(add1, add2));
+
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+		Demand dmd1 = new Demand(null, sdf.parse("30/09/2017 10:32"), ctm1, add1);
+		Demand dmd2 = new Demand(null, sdf.parse("10/10/2017 19:35"), ctm1, add2);
+
+		ctm1.getOrders().addAll(Arrays.asList(dmd1, dmd2));
+		
+		Payment pay1 = new PaymentCard(null, PaymentStatus.QUITADO, dmd1, 6);
+		Payment pay2 = new PaymentBillet(null, PaymentStatus.PENDENTE, dmd2, sdf.parse("20/10/2017 00:00"), null);
+
+		dmd1.setPayment(pay1);
+		dmd2.setPayment(pay2);
+
+		orderRepository.saveAll(Arrays.asList(dmd1, dmd2));
+
+		paymentRepository.saveAll(Arrays.asList(pay1, pay2));
 
 	}
 

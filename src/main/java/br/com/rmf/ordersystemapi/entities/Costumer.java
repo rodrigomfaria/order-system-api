@@ -37,6 +37,9 @@ public class Costumer implements Serializable {
 	@CollectionTable(name = "PHONE_NUMBER")
 	private Set<String> phoneNumbers = new HashSet<>();
 
+	@OneToMany(mappedBy = "costumer")
+	private List<Demand> orders = new ArrayList<>();
+
 	public Costumer() {
 	}
 
@@ -103,6 +106,14 @@ public class Costumer implements Serializable {
 
 	public void setPhoneNumbers(Set<String> phoneNumbers) {
 		this.phoneNumbers = phoneNumbers;
+	}
+
+	public List<Demand> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Demand> orders) {
+		this.orders = orders;
 	}
 
 	@Override
