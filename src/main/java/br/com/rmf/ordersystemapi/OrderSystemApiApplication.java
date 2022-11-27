@@ -14,6 +14,7 @@ import br.com.rmf.ordersystemapi.entities.City;
 import br.com.rmf.ordersystemapi.entities.Costumer;
 import br.com.rmf.ordersystemapi.entities.CostumerType;
 import br.com.rmf.ordersystemapi.entities.Demand;
+import br.com.rmf.ordersystemapi.entities.DemandItem;
 import br.com.rmf.ordersystemapi.entities.Payment;
 import br.com.rmf.ordersystemapi.entities.PaymentBillet;
 import br.com.rmf.ordersystemapi.entities.PaymentCard;
@@ -24,6 +25,7 @@ import br.com.rmf.ordersystemapi.repositories.AddressRepository;
 import br.com.rmf.ordersystemapi.repositories.CategoryRepository;
 import br.com.rmf.ordersystemapi.repositories.CityRepository;
 import br.com.rmf.ordersystemapi.repositories.CostumerRepository;
+import br.com.rmf.ordersystemapi.repositories.DemandItemRepository;
 import br.com.rmf.ordersystemapi.repositories.DemandRepository;
 import br.com.rmf.ordersystemapi.repositories.PaymentRepository;
 import br.com.rmf.ordersystemapi.repositories.ProductRepository;
@@ -56,6 +58,9 @@ public class OrderSystemApiApplication implements CommandLineRunner {
 	@Autowired
 	private PaymentRepository paymentRepository;
 
+	@Autowired
+	private DemandItemRepository demandItemRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(OrderSystemApiApplication.class, args);
 	}
@@ -63,65 +68,82 @@ public class OrderSystemApiApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		Category cat1 = new Category(null, "Computing");
-		Category cat2 = new Category(null, "Office");
+		Category category_1 = new Category(null, "Computing");
+		Category category_2 = new Category(null, "Office");
 
-		Product p1 = new Product(null, "Computer", 2000.00);
-		Product p2 = new Product(null, "Printer", 800.00);
-		Product p3 = new Product(null, "Mouse", 80.00);
+		Product product_1 = new Product(null, "Computer", 2000.00);
+		Product product_2 = new Product(null, "Printer", 800.00);
+		Product product_3 = new Product(null, "Mouse", 80.00);
 
-		cat1.getProducts().addAll(Arrays.asList(p1, p2, p3));
-		cat2.getProducts().addAll(Arrays.asList(p2));
+		category_1.getProducts().addAll(Arrays.asList(product_1, product_2, product_3));
+		category_2.getProducts().addAll(Arrays.asList(product_2));
 
-		p1.getCategories().addAll(Arrays.asList(cat1));
-		p2.getCategories().addAll(Arrays.asList(cat1, cat2));
-		p3.getCategories().addAll(Arrays.asList(cat1));
+		product_1.getCategories().addAll(Arrays.asList(category_1));
+		product_2.getCategories().addAll(Arrays.asList(category_1, category_2));
+		product_3.getCategories().addAll(Arrays.asList(category_1));
 
-		categoryRepository.saveAll(Arrays.asList(cat1, cat2));
-		productRepository.saveAll(Arrays.asList(p1, p2, p3));
+		categoryRepository.saveAll(Arrays.asList(category_1, category_2));
+		productRepository.saveAll(Arrays.asList(product_1, product_2, product_3));
 
-		State st1 = new State(null, "Minas Gerais");
-		State st2 = new State(null, "São Paulo");
+		State state_1 = new State(null, "Minas Gerais");
+		State state_2 = new State(null, "São Paulo");
 
-		City ct1 = new City(null, "Uberlândia", st1);
-		City ct2 = new City(null, "São Paulo", st2);
-		City ct3 = new City(null, "Campinas", st2);
+		City city_1 = new City(null, "Uberlândia", state_1);
+		City city_2 = new City(null, "São Paulo", state_2);
+		City city_3 = new City(null, "Campinas", state_2);
 
-		st1.getCities().addAll(Arrays.asList(ct1));
-		st2.getCities().addAll(Arrays.asList(ct2, ct3));
+		state_1.getCities().addAll(Arrays.asList(city_1));
+		state_2.getCities().addAll(Arrays.asList(city_2, city_3));
 
-		stateRepository.saveAll(Arrays.asList(st1, st2));
-		cityRepository.saveAll(Arrays.asList(ct1, ct2, ct3));
+		stateRepository.saveAll(Arrays.asList(state_1, state_2));
+		cityRepository.saveAll(Arrays.asList(city_1, city_2, city_3));
 
-		Costumer ctm1 = new Costumer(null, "Maria Silva", "maria@gmail.com", "12345678910", CostumerType.PESSOAFISICA);
+		Costumer costumer_1 = new Costumer(null, "Maria Silva", "maria@gmail.com", "12345678910",
+				CostumerType.PESSOAFISICA);
 
-		ctm1.getPhoneNumbers().addAll(Arrays.asList("123456789", "987654321"));
+		costumer_1.getPhoneNumbers().addAll(Arrays.asList("123456789", "987654321"));
 
-		Address add1 = new Address(null, "Rua das Flores", "300", "Apto 303", "Jardim", "38400000", ctm1, ct1);
-		Address add2 = new Address(null, "Avenida Matos", "105", "Sala 800", "Centro", "38401000", ctm1, ct2);
+		Address address_1 = new Address(null, "Rua das Flores", "300", "Apto 303", "Jardim", "38400000", costumer_1,
+				city_1);
+		Address address_2 = new Address(null, "Avenida Matos", "105", "Sala 800", "Centro", "38401000", costumer_1,
+				city_1);
 
-		ctm1.getAddresses().addAll(Arrays.asList(add1, add2));
+		costumer_1.getAddresses().addAll(Arrays.asList(address_1, address_2));
 
-		costumerRepository.saveAll(Arrays.asList(ctm1));
+		costumerRepository.saveAll(Arrays.asList(costumer_1));
 
-		addressRepository.saveAll(Arrays.asList(add1, add2));
+		addressRepository.saveAll(Arrays.asList(address_1, address_2));
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-		Demand dmd1 = new Demand(null, sdf.parse("30/09/2017 10:32"), ctm1, add1);
-		Demand dmd2 = new Demand(null, sdf.parse("10/10/2017 19:35"), ctm1, add2);
+		Demand demand_1 = new Demand(null, sdf.parse("30/09/2017 10:32"), costumer_1, address_1);
+		Demand demand_2 = new Demand(null, sdf.parse("10/10/2017 19:35"), costumer_1, address_2);
 
-		ctm1.getOrders().addAll(Arrays.asList(dmd1, dmd2));
-		
-		Payment pay1 = new PaymentCard(null, PaymentStatus.QUITADO, dmd1, 6);
-		Payment pay2 = new PaymentBillet(null, PaymentStatus.PENDENTE, dmd2, sdf.parse("20/10/2017 00:00"), null);
+		costumer_1.getOrders().addAll(Arrays.asList(demand_1, demand_2));
 
-		dmd1.setPayment(pay1);
-		dmd2.setPayment(pay2);
+		Payment payment_1 = new PaymentCard(null, PaymentStatus.QUITADO, demand_1, 6);
+		Payment payment_2 = new PaymentBillet(null, PaymentStatus.PENDENTE, demand_2, sdf.parse("20/10/2017 00:00"),
+				null);
 
-		orderRepository.saveAll(Arrays.asList(dmd1, dmd2));
+		demand_1.setPayment(payment_1);
+		demand_2.setPayment(payment_2);
 
-		paymentRepository.saveAll(Arrays.asList(pay1, pay2));
+		orderRepository.saveAll(Arrays.asList(demand_1, demand_2));
+
+		paymentRepository.saveAll(Arrays.asList(payment_1, payment_2));
+
+		DemandItem demandItem_1 = new DemandItem(demand_1, product_1, 0.00, 1, 2000.00);
+		DemandItem demandItem_2 = new DemandItem(demand_1, product_3, 0.00, 2, 80.00);
+		DemandItem demandItem_3 = new DemandItem(demand_2, product_2, 100.00, 1, 800.00);
+
+		demand_1.getItems().addAll(Arrays.asList(demandItem_1, demandItem_2));
+		demand_2.getItems().addAll(Arrays.asList(demandItem_3));
+
+		product_1.getItems().addAll(Arrays.asList(demandItem_1));
+		product_2.getItems().addAll(Arrays.asList(demandItem_3));
+		product_3.getItems().addAll(Arrays.asList(demandItem_2));
+
+		demandItemRepository.saveAll(Arrays.asList(demandItem_1, demandItem_2, demandItem_3));
 
 	}
 
