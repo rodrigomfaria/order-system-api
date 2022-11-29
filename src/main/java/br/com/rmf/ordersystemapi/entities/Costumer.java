@@ -14,8 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Costumer implements Serializable {
@@ -30,15 +29,14 @@ public class Costumer implements Serializable {
 	private String registrationNumber;
 	private Integer costumerType;
 
-	@JsonManagedReference
 	@OneToMany(mappedBy = "costumer")
 	private List<Address> addresses = new ArrayList<>();
 
 	@ElementCollection
 	@CollectionTable(name = "PHONE_NUMBER")
 	private Set<String> phoneNumbers = new HashSet<>();
-	
-	@JsonBackReference
+
+	@JsonIgnore
 	@OneToMany(mappedBy = "costumer")
 	private List<Demand> demands = new ArrayList<>();
 
