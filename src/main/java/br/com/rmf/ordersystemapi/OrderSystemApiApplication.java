@@ -119,7 +119,7 @@ public class OrderSystemApiApplication implements CommandLineRunner {
 		Demand demand_1 = new Demand(null, sdf.parse("30/09/2017 10:32"), costumer_1, address_1);
 		Demand demand_2 = new Demand(null, sdf.parse("10/10/2017 19:35"), costumer_1, address_2);
 
-		costumer_1.getOrders().addAll(Arrays.asList(demand_1, demand_2));
+		costumer_1.getDemands().addAll(Arrays.asList(demand_1, demand_2));
 
 		Payment payment_1 = new PaymentCard(null, PaymentStatus.QUITADO, demand_1, 6);
 		Payment payment_2 = new PaymentBillet(null, PaymentStatus.PENDENTE, demand_2, sdf.parse("20/10/2017 00:00"),
