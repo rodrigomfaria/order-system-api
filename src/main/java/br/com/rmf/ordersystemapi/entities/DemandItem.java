@@ -17,7 +17,9 @@ public class DemandItem implements Serializable {
 	private DemandItemPK id = new DemandItemPK();
 
 	private Double discount;
+
 	private Integer amount;
+
 	private Double price;
 
 	public DemandItem() {
@@ -36,7 +38,7 @@ public class DemandItem implements Serializable {
 	public Demand getDemand() {
 		return id.getDemand();
 	}
-	
+
 	public Product getProduct() {
 		return id.getProduct();
 	}

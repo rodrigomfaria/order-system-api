@@ -5,6 +5,7 @@ public enum CostumerType {
 	PESSOAFISICA(1, "Pessoa Física"), PESSOAJURIDICA(2, "Pessoa Jurídica");
 
 	private int cod;
+
 	private String description;
 
 	private CostumerType(int cod, String description) {

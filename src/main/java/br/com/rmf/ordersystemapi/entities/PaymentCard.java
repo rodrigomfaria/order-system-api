@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 public class PaymentCard extends Payment {
 
 	private static final long serialVersionUID = 1L;
+
 	private Integer installmentsNumber;
 
 	public PaymentCard() {

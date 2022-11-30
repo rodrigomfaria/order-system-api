@@ -3,8 +3,6 @@ package br.com.rmf.ordersystemapi.entities;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -15,7 +13,7 @@ public class PaymentBillet extends Payment {
 
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date dueDate;
-	
+
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date paymentDate;
 

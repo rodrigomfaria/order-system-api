@@ -24,9 +24,13 @@ public class Costumer implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+
 	private String name;
+
 	private String email;
+
 	private String registrationNumber;
+
 	private Integer costumerType;
 
 	@OneToMany(mappedBy = "costumer")

@@ -14,7 +14,7 @@ public class DemandItemPK implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "demand_id")
 	private Demand demand;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "product_id")
 	private Product product;

@@ -21,9 +21,13 @@ public class Address implements Serializable {
 	private Integer id;
 
 	private String publicPlace;
+
 	private String number;
+
 	private String complement;
+
 	private String district;
+
 	private String zipCode;
 
 	@JsonIgnore
