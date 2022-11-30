@@ -70,6 +70,11 @@ public class OrderSystemApiApplication implements CommandLineRunner {
 
 		Category category_1 = new Category(null, "Computing");
 		Category category_2 = new Category(null, "Office");
+		Category category_3 = new Category(null, "Bed, table and bath");
+		Category category_4 = new Category(null, "Eletronics");
+		Category category_5 = new Category(null, "Gardem");
+		Category category_6 = new Category(null, "Decoration");
+		Category category_7 = new Category(null, "Perfumery");
 
 		Product product_1 = new Product(null, "Computer", 2000.00);
 		Product product_2 = new Product(null, "Printer", 800.00);
@@ -82,7 +87,7 @@ public class OrderSystemApiApplication implements CommandLineRunner {
 		product_2.getCategories().addAll(Arrays.asList(category_1, category_2));
 		product_3.getCategories().addAll(Arrays.asList(category_1));
 
-		categoryRepository.saveAll(Arrays.asList(category_1, category_2));
+		categoryRepository.saveAll(Arrays.asList(category_1, category_2, category_3, category_4, category_5, category_6, category_7));
 		productRepository.saveAll(Arrays.asList(product_1, product_2, product_3));
 
 		State state_1 = new State(null, "Minas Gerais");
