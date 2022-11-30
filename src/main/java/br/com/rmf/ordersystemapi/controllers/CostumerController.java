@@ -18,10 +18,8 @@ public class CostumerController {
 	private CostumerService service;
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
-
+	public ResponseEntity<Costumer> find(@PathVariable Integer id) {
 		Costumer obj = service.find(id);
-
 		return ResponseEntity.ok().body(obj);
 	}
 

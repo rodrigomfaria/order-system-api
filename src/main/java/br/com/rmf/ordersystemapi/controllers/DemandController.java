@@ -18,10 +18,8 @@ public class DemandController {
 	private DemandService service;
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
-
+	public ResponseEntity<Demand> find(@PathVariable Integer id) {
 		Demand obj = service.find(id);
-
 		return ResponseEntity.ok().body(obj);
 	}
 
