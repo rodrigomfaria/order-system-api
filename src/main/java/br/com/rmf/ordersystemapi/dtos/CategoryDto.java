@@ -2,6 +2,10 @@ package br.com.rmf.ordersystemapi.dtos;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
 import br.com.rmf.ordersystemapi.entities.Category;
 
 public class CategoryDto implements Serializable {
@@ -10,6 +14,8 @@ public class CategoryDto implements Serializable {
 
 	private Integer id;
 
+	@NotEmpty(message = "obligatory filling")
+	@Length(min = 5, max = 80, message = "the length must be between 5 and 80 characters")
 	private String name;
 
 	public CategoryDto() {
