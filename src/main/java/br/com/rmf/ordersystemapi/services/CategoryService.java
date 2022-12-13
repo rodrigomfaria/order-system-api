@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.rmf.ordersystemapi.dtos.CategoryDto;
 import br.com.rmf.ordersystemapi.entities.Category;
+import br.com.rmf.ordersystemapi.entities.Costumer;
 import br.com.rmf.ordersystemapi.repositories.CategoryRepository;
 import br.com.rmf.ordersystemapi.services.exceptions.DataIntegrityException;
 import br.com.rmf.ordersystemapi.services.exceptions.ObjectNotFoundException;
@@ -34,8 +35,9 @@ public class CategoryService {
 	}
 
 	public Category update(Category obj) {
-		find(obj.getId());
-		return repo.save(obj);
+		Category newObj = find(obj.getId());
+		updateData(newObj, obj);
+		return repo.save(newObj);
 	}
 
 	public void delete(Integer id) {
@@ -58,6 +60,10 @@ public class CategoryService {
 
 	public Category fromDto(CategoryDto objDto) {
 		return new Category(objDto.getId(), objDto.getName());
+	}
+
+	private void updateData(Category newObj, Category obj) {
+		newObj.setName(obj.getName());
 	}
 
 }
