@@ -8,7 +8,9 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
 import br.com.rmf.ordersystemapi.entities.Costumer;
+import br.com.rmf.ordersystemapi.services.validation.CostumerUpdate;
 
+@CostumerUpdate
 public class CostumerDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
