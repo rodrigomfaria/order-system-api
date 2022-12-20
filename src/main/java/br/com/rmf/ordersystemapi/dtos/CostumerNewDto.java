@@ -2,23 +2,49 @@ package br.com.rmf.ordersystemapi.dtos;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+import br.com.rmf.ordersystemapi.services.validation.CostumerInsert;
+
+@CostumerInsert
 public class CostumerNewDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@NotEmpty(message = "obligatory filling")
+	@Length(min = 5, max = 120, message = "the length must be between 5 and 120 characters")
 	private String name;
+
+	@NotEmpty(message = "obligatory filling")
+	@Email(message = "Invalid Email")
 	private String email;
+
+	@NotEmpty(message = "obligatory filling")
 	private String registrationNumber;
+
 	private Integer costumerType;
 
+	@NotEmpty(message = "obligatory filling")
 	private String publicPlace;
+
+	@NotEmpty(message = "obligatory filling")
 	private String number;
+
 	private String complement;
+
 	private String district;
+
+	@NotEmpty(message = "obligatory filling")
 	private String zipCode;
 
+	@NotEmpty(message = "obligatory filling")
 	private String phoneNumbers1;
+
 	private String phoneNumbers2;
+
 	private String phoneNumbers3;
 
 	private Integer cityId;
