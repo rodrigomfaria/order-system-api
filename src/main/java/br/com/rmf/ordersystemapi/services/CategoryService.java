@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import br.com.rmf.ordersystemapi.dtos.CategoryDto;
 import br.com.rmf.ordersystemapi.entities.Category;
-import br.com.rmf.ordersystemapi.entities.Costumer;
 import br.com.rmf.ordersystemapi.repositories.CategoryRepository;
 import br.com.rmf.ordersystemapi.services.exceptions.DataIntegrityException;
 import br.com.rmf.ordersystemapi.services.exceptions.ObjectNotFoundException;
