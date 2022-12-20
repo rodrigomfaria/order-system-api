@@ -58,7 +58,7 @@ public class CostumerService {
 		try {
 			costumerRepository.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Cannot delete because there are related entities");
+			throw new DataIntegrityException("it is not possible to delete because there are related demands");
 		}
 	}
 
