@@ -15,11 +15,11 @@ import br.com.rmf.ordersystemapi.services.DemandService;
 public class DemandController {
 
 	@Autowired
-	private DemandService service;
+	private DemandService demandService;
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Demand> find(@PathVariable Integer id) {
-		Demand obj = service.find(id);
+		Demand obj = demandService.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 

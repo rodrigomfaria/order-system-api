@@ -20,41 +20,41 @@ import br.com.rmf.ordersystemapi.services.exceptions.ObjectNotFoundException;
 public class CategoryService {
 
 	@Autowired
-	private CategoryRepository repo;
+	private CategoryRepository categoryRepository;
 
 	public Category find(Integer id) {
-		Optional<Category> obj = repo.findById(id);
+		Optional<Category> obj = categoryRepository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Object not found! Id: " + id + ", Tipo: " + Category.class.getName()));
 	}
 
 	public Category insert(Category obj) {
 		obj.setId(null);
-		return repo.save(obj);
+		return categoryRepository.save(obj);
 	}
 
 	public Category update(Category obj) {
 		Category newObj = find(obj.getId());
 		updateData(newObj, obj);
-		return repo.save(newObj);
+		return categoryRepository.save(newObj);
 	}
 
 	public void delete(Integer id) {
 		find(id);
 		try {
-			repo.deleteById(id);
+			categoryRepository.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Unable to delete a category that has products");
 		}
 	}
 
 	public List<Category> findAll() {
-		return repo.findAll();
+		return categoryRepository.findAll();
 	}
 
 	public Page<Category> findPage(Integer page, Integer linesPerPage, String direction, String orderby) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderby);
-		return repo.findAll(pageRequest);
+		return categoryRepository.findAll(pageRequest);
 	}
 
 	public Category fromDto(CategoryDto objDto) {
