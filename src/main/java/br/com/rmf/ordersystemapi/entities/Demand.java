@@ -54,6 +54,14 @@ public class Demand implements Serializable {
 		this.deliveryAddress = deliveryAddress;
 	}
 
+	public double getAmount() {
+		double sum = 0.0;
+		for (DemandItem demandItem : items) {
+			sum = sum + demandItem.getSubtotal();
+		}
+		return sum;
+	}
+
 	public Integer getId() {
 		return id;
 	}

@@ -18,20 +18,24 @@ public class DemandItem implements Serializable {
 
 	private Double discount;
 
-	private Integer amount;
+	private Integer quantity;
 
 	private Double price;
 
 	public DemandItem() {
 	}
 
-	public DemandItem(Demand demand, Product product, Double discount, Integer amount, Double price) {
+	public DemandItem(Demand demand, Product product, Double discount, Integer quantity, Double price) {
 		super();
 		id.setDemand(demand);
 		id.setProduct(product);
 		this.discount = discount;
-		this.amount = amount;
+		this.quantity = quantity;
 		this.price = price;
+	}
+	
+	public double getSubtotal() {
+		return (price - discount) * quantity;
 	}
 
 	@JsonIgnore
@@ -59,12 +63,12 @@ public class DemandItem implements Serializable {
 		this.discount = discount;
 	}
 
-	public Integer getAmount() {
-		return amount;
+	public Integer getQuantity() {
+		return quantity;
 	}
 
-	public void setAmount(Integer amount) {
-		this.amount = amount;
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
 	}
 
 	public Double getPrice() {
