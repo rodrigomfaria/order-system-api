@@ -90,7 +90,6 @@ public class DBService {
 		category_6.getProducts().addAll(Arrays.asList(product_9, product_10));
 		category_7.getProducts().addAll(Arrays.asList(product_11));
 
-		product_1.getCategories().addAll(Arrays.asList(category_1));
 		product_1.getCategories().addAll(Arrays.asList(category_1, category_4));
 		product_2.getCategories().addAll(Arrays.asList(category_1, category_2, category_4));
 		product_3.getCategories().addAll(Arrays.asList(category_1, category_4));

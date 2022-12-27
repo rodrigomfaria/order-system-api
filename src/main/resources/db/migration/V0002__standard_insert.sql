@@ -5,15 +5,7 @@ INSERT INTO category (id,"name") VALUES
 	 (4,'Eletronics'),
 	 (5,'Gardem'),
 	 (6,'Decoration'),
-	 (7,'Perfumery'),
-	 (8,'Computing'),
-	 (9,'Office'),
-	 (10,'Bed, table and bath');
-INSERT INTO category (id,"name") VALUES
-	 (11,'Eletronics'),
-	 (12,'Gardem'),
-	 (13,'Decoration'),
-	 (14,'Perfumery');
+	 (7,'Perfumery');
 
 INSERT INTO state (id,"name") VALUES
 	 (1,'Minas Gerais'),
@@ -21,7 +13,8 @@ INSERT INTO state (id,"name") VALUES
 
 INSERT INTO city (id,"name",state_id) VALUES
 	 (1,'Uberlândia',1),
-	 (2,'São Paulo',2);
+	 (2,'São Paulo',2),
+       (3,'Campinas',2);
 
 INSERT INTO costumer (id,costumer_type,email,"name",registration_number) VALUES
 	 (1,1,'maria@gmail.com','Maria Silva','12345678910');
