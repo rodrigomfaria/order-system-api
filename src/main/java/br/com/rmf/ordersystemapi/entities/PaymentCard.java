@@ -2,7 +2,10 @@ package br.com.rmf.ordersystemapi.entities;
 
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 @Entity
+@JsonTypeName("paymentCard")
 public class PaymentCard extends Payment {
 
 	private static final long serialVersionUID = 1L;

@@ -42,9 +42,17 @@ public class DemandItem implements Serializable {
 	public Demand getDemand() {
 		return id.getDemand();
 	}
+	
+	public void setDemand(Demand demand) {
+		id.setDemand(demand);
+	}
 
 	public Product getProduct() {
 		return id.getProduct();
+	}
+	
+	public void setProduct(Product product) {
+		id.setProduct(product);
 	}
 
 	public DemandItemPK getId() {
