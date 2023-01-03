@@ -1,6 +1,8 @@
 package br.com.rmf.ordersystemapi.entities;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -33,7 +35,7 @@ public class DemandItem implements Serializable {
 		this.quantity = quantity;
 		this.price = price;
 	}
-	
+
 	public double getSubtotal() {
 		return (price - discount) * quantity;
 	}
@@ -42,7 +44,7 @@ public class DemandItem implements Serializable {
 	public Demand getDemand() {
 		return id.getDemand();
 	}
-	
+
 	public void setDemand(Demand demand) {
 		id.setDemand(demand);
 	}
@@ -50,7 +52,7 @@ public class DemandItem implements Serializable {
 	public Product getProduct() {
 		return id.getProduct();
 	}
-	
+
 	public void setProduct(Product product) {
 		id.setProduct(product);
 	}
@@ -110,6 +112,21 @@ public class DemandItem implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+		StringBuilder builder = new StringBuilder();
+		builder.append(getProduct().getName());
+		builder.append(", Qtd: ");
+		builder.append(getQuantity());
+		builder.append(", Unitary Price: ");
+		builder.append(nf.format(getPrice()));
+		builder.append(", subtotal: ");
+		builder.append(nf.format(getSubtotal()));
+		builder.append("\n");
+		return builder.toString();
 	}
 
 }

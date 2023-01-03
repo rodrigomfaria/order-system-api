@@ -12,6 +12,7 @@ import br.com.rmf.ordersystemapi.entities.Demand;
 import br.com.rmf.ordersystemapi.entities.DemandItem;
 import br.com.rmf.ordersystemapi.entities.PaymentBillet;
 import br.com.rmf.ordersystemapi.entities.PaymentStatus;
+import br.com.rmf.ordersystemapi.repositories.CostumerRepository;
 import br.com.rmf.ordersystemapi.repositories.DemandItemRepository;
 import br.com.rmf.ordersystemapi.repositories.DemandRepository;
 import br.com.rmf.ordersystemapi.repositories.PaymentRepository;
@@ -34,6 +35,9 @@ public class DemandService {
 
 	@Autowired
 	private DemandItemRepository demandItemRepository;
+	
+	@Autowired
+	private CostumerRepository costumerRepository;
 
 	public Demand find(Integer id) {
 		Optional<Demand> obj = demandRepository.findById(id);
@@ -45,6 +49,7 @@ public class DemandService {
 	public Demand insert(Demand obj) {
 		obj.setId(null);
 		obj.setCreateAt(new Date());
+		obj.setCostumer(costumerRepository.findById(obj.getCostumer().getId()).get());
 		obj.getPayment().setPaymentStatus(PaymentStatus.PENDENTE);
 		obj.getPayment().setDemand(obj);
 		if (obj.getPayment() instanceof PaymentBillet) {
@@ -55,10 +60,12 @@ public class DemandService {
 		paymentRepository.save(obj.getPayment());
 		for (DemandItem demandItem : obj.getItems()) {
 			demandItem.setDiscount(0.0);
-			demandItem.setPrice(productService.find(demandItem.getProduct().getId()).getPrice());
+			demandItem.setProduct(productService.find(demandItem.getProduct().getId()));
+			demandItem.setPrice(demandItem.getProduct().getPrice());
 			demandItem.setDemand(obj);
 		}
 		demandItemRepository.saveAll(obj.getItems());
+		System.out.println(obj);
 		return obj;
 	}
 
