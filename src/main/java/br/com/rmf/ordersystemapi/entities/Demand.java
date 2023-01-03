@@ -146,9 +146,9 @@ public class Demand implements Serializable {
 		builder.append("Demand number: ");
 		builder.append(getId());
 		builder.append(", Create at: ");
-		builder.append(getCreateAt());
+		builder.append(sdf.format(getCreateAt()));
 		builder.append(", Costumer: ");
-		builder.append(sdf.format(getCostumer().getName()));
+		builder.append(getCostumer().getName());
 		builder.append(", Payment Status: ");
 		builder.append(getPayment().getPaymentStatus().getDescription());
 		builder.append("\nDetails: ");

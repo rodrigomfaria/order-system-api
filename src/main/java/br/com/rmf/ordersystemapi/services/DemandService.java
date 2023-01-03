@@ -38,6 +38,9 @@ public class DemandService {
 	
 	@Autowired
 	private CostumerRepository costumerRepository;
+	
+	@Autowired
+	private EmailService emailService;
 
 	public Demand find(Integer id) {
 		Optional<Demand> obj = demandRepository.findById(id);
@@ -65,7 +68,7 @@ public class DemandService {
 			demandItem.setDemand(obj);
 		}
 		demandItemRepository.saveAll(obj.getItems());
-		System.out.println(obj);
+		emailService.sendDemandConfirmationEmail(obj);
 		return obj;
 	}
 
